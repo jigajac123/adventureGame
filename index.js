@@ -1,7 +1,7 @@
 
-import platform from './images/ gamePlatformGraceModify1PNG.png'
+import gamePlatformGraceModify1PNG from '../images/ gamePlatformGraceModify1PNG.png'
 
-console.log(platform)
+console.log(gamePlatformGraceModify1PNG)
 const canvas = document.querySelector('canvas')
 
 const c = canvas.getContext('2d')
@@ -65,7 +65,7 @@ class Platform{
 
 const player = new Player()
 const platforms = [new Platform({x:100, y:200}),
-                   new Platform({x:500, y:150}), 
+                   new Platform({x:500, y:150}),
                    new Platform({x:1000, y:300})]
 
 
