@@ -1,5 +1,5 @@
 
-import gamePlatformGraceModify1PNG from '../images/ gamePlatformGraceModify1PNG.png'
+import gamePlatformGraceModify1PNG from './images/gamePlatformGraceModify1PNG.png'
 
 console.log(gamePlatformGraceModify1PNG)
 const canvas = document.querySelector('canvas')
