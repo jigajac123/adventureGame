@@ -201,14 +201,15 @@ player.update()
 if(keys.right.pressed && player.position.x < 400){
   player.velocity.x = player.speed
 }
-else if(keys.left.pressed && player.position.x > 100){
+else if((keys.left.pressed && player.position.x > 100) ||
+keys.left.pressed && scrollOffset === 0 && player.position.x > 0){
 
   player.velocity.x = -player.speed
 }
 else{
   player.velocity.x = 0
 
-  if(keys.right.pressed){
+  if(keys.right.pressed ){
       scrollOffset += 5
     platforms.forEach((platform) =>{
       platform.position.x -= player.speed*0.66
@@ -218,7 +219,7 @@ else{
       movement.position.x -= player.speed*0.66
     })
   }
-  else if(keys.left.pressed){
+  else if(keys.left.pressed && scrollOffset > 0){
        scrollOffset -= 5
     platforms.forEach((platform) =>{
         platform.position.x += player.speed*0.66
@@ -245,7 +246,7 @@ platform.position.x + platform.width){
 })
 
 //winning condition
-if(scrollOffset > 4000){
+if(scrollOffset > 3500){
   console.log('You won')
 }
 
