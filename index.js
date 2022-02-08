@@ -1,5 +1,6 @@
 
 import platformImage from '../images/gamePlatformGraceModify1PNG.png'
+import background from '../images/background1.jpg'
 
 
 const canvas = document.querySelector('canvas')
@@ -52,8 +53,29 @@ class Platform{
     }
 
     this.image = image
-    this.width = 200
-    this.height = 20
+    this.width = image.width
+    this.height = image.height
+  }
+
+  draw(){
+
+    c.drawImage(this.image, this.position.x, this.position.y)
+  }
+
+
+
+}
+
+class BackgroundImage{
+  constructor({x,y,image}){
+    this.position ={
+      x,
+      y
+    }
+
+    this.image = image
+    this.width = image.width
+    this.height = image.height
   }
 
   draw(){
@@ -73,12 +95,16 @@ function displayImage(imageSrc){
 }
 
 const platform = displayImage(platformImage)
+const backgroundHelper = displayImage(background)
 
 const player = new Player()
-const platforms = [new Platform({x:100, y:200, image: platform}),
-                   new Platform({x:500, y:150, image: platform})]
+const platforms = [new Platform({x:-1, y:505, image: platform}),
+                   new Platform({x:platform.width -3, y:505, image: platform})]
 
 
+const backgroundImages = [new BackgroundImage({x:0, y:-300, image: backgroundHelper
+
+})]
 const keys = {
   right:{
     pressed : false
@@ -93,11 +119,15 @@ function animation(){
   requestAnimationFrame(animation)
   c.fillStyle ='white'
   c.fillRect(0, 0, canvas.width, canvas.height)
-player.update()
+
+  backgroundImages.forEach((background) =>{
+    background.draw()
+  })
+
 platforms.forEach((platform) =>{
   platform.draw()
 })
-
+player.update()
 
 if(keys.right.pressed && player.position.x < 400){
   player.velocity.x = 5
