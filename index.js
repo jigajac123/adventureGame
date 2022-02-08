@@ -44,7 +44,7 @@ update(){
   if(this.position.y + this.height +
     this.velocity.y <= canvas.height)
   this.velocity.y += gravity
-  else this.velocity.y = 0
+
 
 }
 
@@ -218,10 +218,15 @@ platform.position.x + platform.width){
 
 })
 
-if(scrollOffset > 2000){
+//winning condition
+if(scrollOffset > 4000){
   console.log('You won')
 }
 
+//losing condition
+if(player.position.y > canvas.height){
+  console.log('you lost')
+}
 }
 
 
