@@ -19,6 +19,7 @@ const gravity = 0.5
 let scrollOffset = 0
 class Player {
   constructor() {
+    this.speed = 10
     this.position ={
       x:100,
       y:100
@@ -207,11 +208,11 @@ platforms.forEach((platform) =>{
 player.update()
 
 if(keys.right.pressed && player.position.x < 400){
-  player.velocity.x = 5
+  player.velocity.x = player.speed
 }
 else if(keys.left.pressed && player.position.x > 100){
 
-  player.velocity.x = -5
+  player.velocity.x = -player.speed
 }
 else{
   player.velocity.x = 0
@@ -219,21 +220,21 @@ else{
   if(keys.right.pressed){
       scrollOffset += 5
     platforms.forEach((platform) =>{
-      platform.position.x -= 5
+      platform.position.x -= player.speed*0.66
     })
 
     backgroundMovements.forEach((movement) =>{
-      movement.position.x -=3
+      movement.position.x -= player.speed*0.66
     })
   }
   else if(keys.left.pressed){
        scrollOffset -= 5
     platforms.forEach((platform) =>{
-        platform.position.x += 5
+        platform.position.x += player.speed*0.66
     })
 
     backgroundMovements.forEach((movement) =>{
-      movement.position.x +=3
+      movement.position.x += player.speed*0.66
     })
   }
 }
@@ -273,7 +274,7 @@ addEventListener('keydown', ({keyCode}) =>{
 switch (keyCode){
   case 86:
  console.log('Top')
- player.velocity.y = -20
+ player.velocity.y = -15
  break
 
  case 66:
@@ -300,7 +301,6 @@ addEventListener('keyup', ({keyCode}) =>{
 switch (keyCode){
   case 86:
  console.log('Top')
- player.position.y = 0
  break
 
  case 66:
