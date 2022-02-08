@@ -1,6 +1,11 @@
 
 import platformImage from '../images/gamePlatformGraceModify1PNG.png'
 import background from '../images/background1.jpg'
+import background1 from '../images/big-tree.png'
+import background2 from '../images/tree.png'
+import background3 from '../images/doubled.png'
+import background4 from '../images/mountain2.png'
+import platformImage1 from '../images/gamePlatformGraceModify4.png'
 
 
 const canvas = document.querySelector('canvas')
@@ -87,6 +92,27 @@ class BackgroundImage{
 
 }
 
+class BackgroundMovement{
+  constructor({x,y,image}){
+    this.position ={
+      x,
+      y
+    }
+
+    this.image = image
+    this.width = image.width
+    this.height = image.height
+  }
+
+  draw(){
+
+    c.drawImage(this.image, this.position.x, this.position.y)
+  }
+
+
+
+}
+
 function displayImage(imageSrc){
   const image = new Image()
   image.src= imageSrc
@@ -96,15 +122,28 @@ function displayImage(imageSrc){
 
 const platform = displayImage(platformImage)
 const backgroundHelper = displayImage(background)
+const backgroundHelper1 = displayImage(platformImage1)
 
 const player = new Player()
 const platforms = [new Platform({x:-1, y:505, image: platform}),
-                   new Platform({x:platform.width -3, y:505, image: platform})]
+                   new Platform({x:platform.width -3, y:505, image: platform}),
+                   new Platform({x:1100, y:400, image: backgroundHelper1}),
+                   new Platform({x:1800, y:300, image: backgroundHelper1}),
+                   new Platform({x:2500, y:505, image: platform}),
+                   new Platform({x:2998, y:505, image: platform})]
 
 
-const backgroundImages = [new BackgroundImage({x:0, y:-300, image: backgroundHelper
+const backgroundImages = [new BackgroundImage({x:0, y:-300, image: backgroundHelper})]
 
-})]
+const backgroundMovements = [new BackgroundMovement({x:0, y:300,
+  image:displayImage(background3)}),
+
+new BackgroundMovement({x:500, y:300, image: displayImage(background2)}),
+new BackgroundMovement({x:1200, y:110, image: displayImage(background2)}),
+new BackgroundMovement({x:2300, y:-120, image: displayImage(background1)}),
+new BackgroundMovement({x:4000, y:400, image: displayImage(background4)})
+]
+
 const keys = {
   right:{
     pressed : false
@@ -123,6 +162,10 @@ function animation(){
   backgroundImages.forEach((background) =>{
     background.draw()
   })
+
+backgroundMovements.forEach((movement) =>{
+  movement.draw()
+})
 
 platforms.forEach((platform) =>{
   platform.draw()
@@ -145,6 +188,9 @@ else{
       platform.position.x -= 5
     })
 
+    backgroundMovements.forEach((movement) =>{
+      movement.position.x -=3
+    })
   }
   else if(keys.left.pressed){
        scrollOffset -= 5
@@ -152,7 +198,9 @@ else{
         platform.position.x += 5
     })
 
-
+    backgroundMovements.forEach((movement) =>{
+      movement.position.x +=3
+    })
   }
 }
 
