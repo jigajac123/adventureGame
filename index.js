@@ -120,12 +120,12 @@ function displayImage(imageSrc){
 
 }
 
-const platform = displayImage(platformImage)
-const backgroundHelper = displayImage(background)
-const backgroundHelper1 = displayImage(platformImage1)
+let platform = displayImage(platformImage)
+let backgroundHelper = displayImage(background)
+let backgroundHelper1 = displayImage(platformImage1)
 
-const player = new Player()
-const platforms = [new Platform({x:-1, y:505, image: platform}),
+let player = new Player()
+let platforms = [new Platform({x:-1, y:505, image: platform}),
                    new Platform({x:platform.width -3, y:505, image: platform}),
                    new Platform({x:1100, y:400, image: backgroundHelper1}),
                    new Platform({x:1800, y:300, image: backgroundHelper1}),
@@ -133,9 +133,9 @@ const platforms = [new Platform({x:-1, y:505, image: platform}),
                    new Platform({x:2998, y:505, image: platform})]
 
 
-const backgroundImages = [new BackgroundImage({x:0, y:-300, image: backgroundHelper})]
+let backgroundImages = [new BackgroundImage({x:0, y:-300, image: backgroundHelper})]
 
-const backgroundMovements = [new BackgroundMovement({x:0, y:300,
+let backgroundMovements = [new BackgroundMovement({x:0, y:300,
   image:displayImage(background3)}),
 
 new BackgroundMovement({x:500, y:300, image: displayImage(background2)}),
@@ -153,6 +153,40 @@ const keys = {
   }
 }
 
+function Init(){
+
+  scrollOffset = 0
+  function displayImage(imageSrc){
+    const image = new Image()
+    image.src= imageSrc
+    return image
+
+  }
+
+   platform = displayImage(platformImage)
+   backgroundHelper = displayImage(background)
+   backgroundHelper1 = displayImage(platformImage1)
+
+   player = new Player()
+   platforms = [new Platform({x:-1, y:505, image: platform}),
+                     new Platform({x:platform.width -3, y:505, image: platform}),
+                     new Platform({x:1100, y:400, image: backgroundHelper1}),
+                     new Platform({x:1800, y:300, image: backgroundHelper1}),
+                     new Platform({x:2500, y:505, image: platform}),
+                     new Platform({x:2998, y:505, image: platform})]
+
+
+   backgroundImages = [new BackgroundImage({x:0, y:-300, image: backgroundHelper})]
+
+   backgroundMovements = [new BackgroundMovement({x:0, y:300,
+    image:displayImage(background3)}),
+
+  new BackgroundMovement({x:500, y:300, image: displayImage(background2)}),
+  new BackgroundMovement({x:1200, y:110, image: displayImage(background2)}),
+  new BackgroundMovement({x:2300, y:-120, image: displayImage(background1)}),
+  new BackgroundMovement({x:4000, y:400, image: displayImage(background4)})
+  ]
+}
 
 function animation(){
   requestAnimationFrame(animation)
@@ -225,7 +259,7 @@ if(scrollOffset > 4000){
 
 //losing condition
 if(player.position.y > canvas.height){
-  console.log('you lost')
+  Init()
 }
 }
 
