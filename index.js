@@ -1,13 +1,13 @@
 
-import gamePlatformGraceModify1PNG from './images/gamePlatformGraceModify1PNG.png'
+import platformImage from '../images/gamePlatformGraceModify1PNG.png'
 
-console.log(gamePlatformGraceModify1PNG)
+
 const canvas = document.querySelector('canvas')
 
 const c = canvas.getContext('2d')
 
-canvas.width = innerWidth
-canvas.height = innerHeight
+canvas.width = 1024
+canvas.height = 570
 const gravity = 0.5
 
 let scrollOffset = 0
@@ -45,28 +45,38 @@ update(){
 }
 
 class Platform{
-  constructor({x,y}){
+  constructor({x,y,image}){
     this.position ={
       x,
       y
     }
+
+    this.image = image
     this.width = 200
     this.height = 20
   }
 
   draw(){
-    c.fillStyle ='green'
-    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+
+    c.drawImage(this.image, this.position.x, this.position.y)
   }
 
 
 
 }
 
+function displayImage(imageSrc){
+  const image = new Image()
+  image.src= imageSrc
+  return image
+
+}
+
+const platform = displayImage(platformImage)
+
 const player = new Player()
-const platforms = [new Platform({x:100, y:200}),
-                   new Platform({x:500, y:150}),
-                   new Platform({x:1000, y:300})]
+const platforms = [new Platform({x:100, y:200, image: platform}),
+                   new Platform({x:500, y:150, image: platform})]
 
 
 const keys = {
@@ -81,7 +91,8 @@ const keys = {
 
 function animation(){
   requestAnimationFrame(animation)
-  c.clearRect(0, 0, canvas.width, canvas.height)
+  c.fillStyle ='white'
+  c.fillRect(0, 0, canvas.width, canvas.height)
 player.update()
 platforms.forEach((platform) =>{
   platform.draw()
