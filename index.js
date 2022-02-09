@@ -6,6 +6,10 @@ import background2 from '../images/tree.png'
 import background3 from '../images/doubled.png'
 import background4 from '../images/mountain2.png'
 import platformImage1 from '../images/gamePlatformGraceModify4.png'
+import animeStandRight from '../images/animeStand.png'
+import animeRunRight from '../images/animeRunRight.png'
+import animeRunLeft from '../images/animeRunLeft.png'
+
 
 
 const canvas = document.querySelector('canvas')
@@ -28,16 +32,50 @@ class Player {
       x:0,
       y: 5
     }
-    this.width = 30
-    this.height = 30
+
+    this.width = 104
+    this.height = 103
+
+    this.image = displayImage(animeStandRight)
+    this.frames = 0
+    this.sprites = {
+      stand:{
+        right:displayImage(animeStandRight),
+        left :'',
+        cropHeight:56
+      },
+
+      run:{
+        right: displayImage(animeRunRight),
+        left : displayImage(animeRunLeft),
+        cropHeight : 59
+      }
+    }
+    this.currentSprite = this.sprites.stand.right
+    this.currentCropWidth = 64
+    this.currentCropHeight = 56
   }
 
   draw(){
-    c.fillStyle ='red'
-    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    c.drawImage(this.currentSprite,
+      this.currentCropWidth*this.frames,
+      0,
+      this.currentCropWidth,
+      this.currentCropHeight,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height)
   }
 
 update(){
+  this.frames++
+
+  if(this.frames > 9 ){
+    this.frames =0
+  }
+
+
   this.draw()
   this.position.y += this.velocity.y
   this.position.x += this.velocity.x
@@ -277,11 +315,15 @@ break
  case 78:
 console.log('right')
 keys.right.pressed = true
+player.currentSprite = player.sprites.run.right
+player.currentCropHeight = player.sprites.run.cropHeight
 break
 
 case 77:
 console.log('left')
 keys.left.pressed = true
+player.currentSprite = player.sprites.run.left
+player.currentCropHeight = 57
 break
 }
 
@@ -302,11 +344,15 @@ break
  case 78:
 console.log('right')
 keys.right.pressed = false
+player.currentSprite = player.sprites.stand.right
+player.currentCropHeight = player.sprites.stand.cropHeight
 break
 
 case 77:
 console.log('left')
 keys.left.pressed = false
+player.currentSprite = player.sprites.stand.right
+player.currentCropHeight = player.sprites.stand.cropHeight
 break
 }
 
